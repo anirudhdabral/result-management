@@ -1,0 +1,49 @@
+<div class="card div-center text-bg-dark" style="width: 42rem;">
+  <div class="card-body content">
+    <h3 class="card-title">Add new result</h3>
+    <div *ngIf="isPresent" class="alert alert-danger" role="alert">
+      <strong>Error!</strong><span> Result with this roll ro. already exist.</span>
+    </div>
+    <form class="mt-3" [formGroup]="addResult" (ngSubmit)="collectResult()">
+      <div class="mb-3 row">
+        <label for="staticEmail" class="col-sm-4 col-form-label">Roll No.</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" name="id" formControlName="id">
+          <div class="text-warning" *ngIf="id?.invalid && id?.touched">
+            <small>Please enter a valid Roll No.</small>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-4 col-form-label">Name</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="name" formControlName="name">
+          <div class="text-warning" *ngIf="name?.invalid && name?.touched">
+            <small>Please enter a name.</small>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-4 col-form-label">Date of birth</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="dob" name="dob" min="{{minDate | date:'yyyy-MM-dd'}}"
+            max="{{maxDate | date:'yyyy-MM-dd'}}">
+          <div class="text-warning" *ngIf="dob?.invalid && dob?.touched">
+            <small>Please enter a valid date.</small>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-4 col-form-label">Score</label>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="score">
+          <div class="text-warning" *ngIf="score?.invalid && score?.touched">
+            <small>Score cannot be negative or more than 100.</small>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-light m-1" [disabled]="addResult.invalid">Add result</button>
+      <button type="button" class="btn btn-danger m-1" (click)="navigateToAllResults()">Cancel</button>
+    </form>
+  </div>
+</div>
